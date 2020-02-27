@@ -32,10 +32,19 @@ def sitemap():
 # start of family contacts api project
 @app.route('/all', methods=['GET'])
 def get_all_members():
-    
+
     family_mars.get_all_members()
         
     return jsonify(family_mars.get_all_members())
+
+@app.route('/add', methods=['POST'])
+def add_member():
+    
+    family_mars.append.add_member()
+
+    return jsonify({"message":"New User Created!"})
+
+
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
