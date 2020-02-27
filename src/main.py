@@ -7,16 +7,16 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
-from models import db
-#from models import Person
+from models import Family
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_CONNECTION_STRING')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-MIGRATE = Migrate(app, db)
-db.init_app(app)
+MIGRATE = Migrate(app)
 CORS(app)
+
+family_mars = Family('Mars')
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
@@ -28,14 +28,14 @@ def handle_invalid_usage(error):
 def sitemap():
     return generate_sitemap(app)
 
-@app.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
 
-    response_body = {
-        "hello": "world"
-    }
-
-    return jsonify(response_body), 200
+# start of family contacts api project
+@app.route('/all', methods=['GET'])
+def get_all_members():
+    
+    family_mars.get_all_members()
+        
+    return jsonify(family_mars.get_all_members())
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

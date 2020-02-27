@@ -26,7 +26,7 @@ class Family:
 
         # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
-        return random.randint(0, 99999999) //import random 
+        return "" #random.randint(0, 99999999) //import random 
 
     def add_member(self, member):
         ## you have to implement this method
