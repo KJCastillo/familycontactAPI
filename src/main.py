@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app)
 CORS(app)
 
-family_mars = Family('Mars')
+familymars = Family()
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
@@ -31,18 +31,19 @@ def sitemap():
 
 # start of family contacts api project
 @app.route('/all', methods=['GET'])
-def get_all_members():
+def get_all_member():
 
-    family_mars.get_all_members()
+    familymars.get_all_members()
         
-    return jsonify(family_mars.get_all_members())
+    return jsonify(familymars.get_all_members()), 200
 
 @app.route('/add', methods=['POST'])
-def add_member():
-    
-    family_mars.append.add_member()
+def add_membe():
+    bubu = request.get_json()
+    test = Family().add_member(bubu)
+    # print(Family)
 
-    return jsonify({"message":"New User Created!"})
+    return jsonify(test), 200
 
 
 
